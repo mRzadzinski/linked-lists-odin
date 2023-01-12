@@ -164,6 +164,49 @@ class LinkedList {
             curr = curr.nextNode;
         }
     }
+
+    // Removes the node at the given index
+    removeAt(index) {
+        if (this.head === null) return;
+
+        let counter = 2;
+        let prev = this.head;
+        let curr = this.head.nextNode;
+
+        if (index === 1) {
+            if (curr === null) {
+                this.head = null;
+                return;
+            } else {
+                this.head = curr;
+                return;
+            }
+        }
+
+        let next = this.head.nextNode.nextNode;
+
+        while (curr != null) {
+            // Deal with too large index
+            if (next === null && index > counter) {
+                return console.log('Index out of range.');
+            }
+            // If element is last on the list
+            if (next === null && index === counter) {
+                this.pop();
+                return;
+            }
+
+            if (index === counter) {
+                prev.nextNode = next;
+                return;
+            }
+
+            prev = prev.nextNode;
+            curr = curr.nextNode;
+            next = next.nextNode;
+            counter += 1;
+        }
+    }
 }
 
 class Node {
@@ -180,5 +223,4 @@ list.append(2);
 list.append(3);
 list.prepend(55)
 
-// console.log();
 console.log(list);
