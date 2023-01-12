@@ -54,6 +54,7 @@ class LinkedList {
     // Returns the node at the given index
     atIndex(index) {
         let tempHead = this.head;
+
         for (let i = 1; i < index; i++) {
             tempHead = tempHead.nextNode;
         }
@@ -101,6 +102,7 @@ class LinkedList {
 
         let counter = 1;
         let tempHead = this.head;
+
         do {
             if (tempHead.value === value) return counter;
             tempHead = tempHead.nextNode;
@@ -108,6 +110,59 @@ class LinkedList {
         } while (tempHead != null);
 
         return null;
+    }
+
+    // Represents the list as a string in format: ( value ) -> ( value ) -> ( value ) -> null
+    toString() {
+        if (this.head === null) return '( null )';
+
+        let tempHead = this.head;
+        let string = '';
+
+        while (tempHead != null) {
+            if (string === '') {
+                string += `( ${tempHead.value} )`;
+            } else {
+                string += ` -> ( ${tempHead.value} )`;
+            }
+
+            if (tempHead.nextNode === null) {
+                string += ' -> ( null )';
+                return string;
+            }
+
+            tempHead = tempHead.nextNode;
+        }
+    }
+
+    // Inserts a new node with the provided value at the given index
+    insertAt(value, index) {
+        if (this.head === null) return;
+        if (index === 1) {
+            this.prepend(value);
+            return;
+        }
+
+        let counter = 2;
+        let prev = this.head;
+        let curr = this.head.nextNode;
+
+        while (prev != null) {
+            // Deal with too large index
+            if (curr === null && index > counter) {
+                return console.log('Index out of range.');
+            }
+
+            if (counter === index) {
+                let newNode = new Node(value, curr);
+                prev.nextNode = newNode;
+                return;
+            }
+
+            counter += 1;
+            prev = prev.nextNode;
+            curr = curr.nextNode;
+        }
     }
 }
 
@@ -125,6 +180,5 @@ list.append(2);
 list.append(3);
 list.prepend(55)
 
-
+// console.log();
 console.log(list);
-console.log(list.find(55));
