@@ -105,7 +105,7 @@ class LinkedList {
             if (tempHead.value === value) return counter;
             tempHead = tempHead.nextNode;
             counter += 1;
-        } while (tempHead.value != null);
+        } while (tempHead != null);
 
         return null;
     }
@@ -127,4 +127,4 @@ list.prepend(55)
 
 
 console.log(list);
-console.log(list.find(4));
+console.log(list.find(55));
